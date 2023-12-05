@@ -1,6 +1,10 @@
-import type { Metadata } from 'next';
+/* eslint-disable import/order */
+import React from 'react';
+import Providers from '../components/Providers'; // Import the Providers component
+import Headers from '../components/Headers'; // Assuming the Header component exists
+import '../styles/globals.css';
 import { Inter } from 'next/font/google';
-import './globals.css';
+import { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,11 +16,19 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        {/* Include any necessary head content */}
+      </head>
+      <body className={inter.className}>
+        <Providers>
+          <Headers />
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }

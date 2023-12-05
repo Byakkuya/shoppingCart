@@ -10,9 +10,13 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
+    "@next/swc-win32-x64-msvc": "^14.0.3",
+    "@reduxjs/toolkit": "^2.0.1",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-redux": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
