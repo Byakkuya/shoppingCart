@@ -15,15 +15,15 @@ function CartPage() {
     <div className="p-2">
       {cartItems.map((item) => (
         <CartItemCard cartItem={item} key={item.product.id} />
-
       ))}
 
-      <p>
-        Total of all the products :
-        {total}
-        $
+      <p className="text-center mt-4">
+        Total of all the products:
+        <span className="font-bold text-lg">
+          {total}
+          $
+        </span>
       </p>
-
     </div>
   );
 }

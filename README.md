@@ -1,36 +1,244 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Technical Test
 
-## Getting Started
+<aside>
+💡 what i learned : 
+-in a team we need rules to build and clean code without conflicts while mergins etc so we use some tools like eslint, but question why we use the Airbnb style guide and not google for example , and why we didn’t add prettier for more formating etc (bunch of people recommending using it ) .
+-husky is amazing tool , for automating testing before commiting so we can ensure that we commited clean code
+about  nextjs :
 
-First, run the development server:
+using typescript especially with eslint formatting slowed my workflow but it was really beneficial after all 
+
+the routing architecture is different from react somehow its much easier   
+
+in general this assignment helped me recognizing a lot of things about nextjs ,typescript  so thank you 
+
+and can you recommend me some nextjs/typescript courses so i can improve my skills etc .
+
+</aside>
+
+# The main work :
+
+# Setup nextjs with Eslint-airbnb and Husky
+
+create nextjs app
+
+`npx create-next-app@latest`
+
+install eslint
+
+`npm install eslint --save-dev` 
+
+`npx eslint --init` 
+
+
+
+install airbnb
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install eslint-config-airbnb --save-dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+edit eslintrc.json
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```json
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb",
+      "airbnb/hooks",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended",
+      "plugin:jsx-a11y/recommended",
+      "next"
+      ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "no-console": "error",
+        "react/require-default-props": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "react/prop-types": "off", // If you're using TypeScript, prop-types are not needed
+        "@typescript-eslint/explicit-module-boundary-types": "off", // Allows you to skip explicit return types in TypeScript
+        "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }], // Only .tsx files for JSX
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "jsx": "never",
+            "ts": "never",
+            "tsx": "never"
+          }
+        ],
+        "import/no-unresolved": "off", // TypeScript takes care of this
+        "react/react-in-jsx-scope": "off", // Not needed in Next.js
+        "react/jsx-props-no-spreading": "off", // Allowing spread props
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "import/prefer-default-export": "off"
+      },
+      "settings": {
+        "import/resolver": {
+          "node": {
+            "extensions": [".js", ".jsx", ".ts", ".tsx"]
+          }
+        }
+      }
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+adding Husky : 
 
-## Learn More
+```bash
+npx husky-init && npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+inside husky/pre-commit
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+npm run lint
+```
 
-## Deploy on Vercel
+Now when we run commit we maked sure that lint will run yaaaaaaaaaaay
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+docs that i used :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[https://javascript.plainenglish.io/creating-a-next-js-project-with-eslint-airbnb-style-guide-typescript-and-husky-ccf0f7ea0ba5](https://javascript.plainenglish.io/creating-a-next-js-project-with-eslint-airbnb-style-guide-typescript-and-husky-ccf0f7ea0ba5)
+
+[https://typicode.github.io/husky/getting-started.html](https://typicode.github.io/husky/getting-started.html)
+
+# setup the redux and create the logic
+
+installed redux and redux toolkit
+
+```bash
+npm install @reduxjs/toolkit react-redux
+```
+
+created interfaces.ts :
+
+created 2 objects : Product / CartItem
+
+```tsx
+export interface Product {
+    id: number;
+    name: string;
+    price: number;
+    description: string;
+    image: string;
+  }
+
+export interface CartItem {
+    product: Product;
+    monthsNumber: number;
+  }
+```
+
+created store.ts :
+
+-used configureStore from the reduxtoolkit to create our store and inside it we took CartSlice reducers as a reducer to of the store
+
+-defined two TypeScript types, `RootState` and `AppDispatch`, which are used in a Redux store setup.
+
+-then used those two types to define custom hooks, `useAppDispatch` and `useAppSelecto`
+
+⇒ more safety 🙂
+
+INSIDE THE CartSlice.ts 
+
+here we implement the logic :
+
+-created `CartState` :an array of `CartItem` objects.
+
+-created `initialState` : initializing `cartItems` as an empty array.
+
+-created `cartSlice` using `createSlice`  from reduxtoolkit. It has two reducers: `increment` and `decrement`. 
+
+The `increment` to add a product to the cart or increase the number of months if it already exists in the cart. 
+
+The `decrement` reducer is used to decrease the number of months in the cart or remove it from the cart if its zero.
+
+-created `cartItems` : a selector that takes the global state of store.ts and returns the `cartItems` from the cart slice of the state
+
+-created 3 redux selectors : 
+
+`productMonthsNBInCartSelector` calculates and returns the number of months of a specific product in the cart
+
+`totalCartItemsSelector` calculates and returns the total months NB of all products in the cart
+
+`TotalPriceSelector` calculates and returns the total price of all products in the cart
+
+-exported the actions and a reducer from a Redux slice 
+
+# creating components :
+
+-Providers.tsx : wraps its children with the Redux `Provider` component.
+
+-layout.tsx : sets up the main structure of the app :
+
+wraps any child components passed to `RootLayout` inside  Providers component
+
+-created `data.ts`. This file is defining and exporting an array of product objects
+
+---
+
+-created `ProductCard` : displays information about a product.
+
+---
+
+-created `page.tsx` : 
+
+we imported  `ProductCard`  
+
+maps over the `data` array and returns a `ProductCard` component for each product
+
+---
+
+-created `AddToCartBtn.tsx` : allows users to add products to their cart and adjust the number of months of each product in the cart.
+
+here we used The `productMonthsNBInCartSelector` selector
+
+if monthsnumber is 0 or undefined ⇒ we return add to cart button
+
+then we return `MonthsBtn` component :
+
+the `onDecrease` and `onIncrease` props are function to dispatch actions `decrement` and `increment`
+
+---
+
+-created `CartBtn.tsx`  : displays a shopping bag icon and the total number of items in the cart.
+
+we use the `totalCartItemsSelector` selector to get the total number of items in the cart from the Redux store.
+
+if `totalItems` is not `0` or `undefined` it will displays the total number of items in the cart
+
+then we added it to the headers.tsx 
+
+---
+
+inside it i created  `Page.tsx`: displays all the items in the cart and the total price of all the items : 
+
+used the `TotalPriceSelector` selector to get total price of all the items in the cart from the redux store
+
+mapped over an array of `cartItems`. For each `item` in `cartItems`  we `CartItemCard` component.
+
+CartItemCard : displays the details of an item in the cart:
+
+and add a `MonthsBtn` component to increase or decrease the number of months
+
+the rest is small details like desgining 
+
+---
