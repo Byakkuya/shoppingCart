@@ -1,7 +1,7 @@
 /* eslint-disable import/order */
 import React from 'react';
-import Providers from '../components/Providers'; // Import the Providers component
-import Headers from '../components/Headers'; // Assuming the Header component exists
+import Providers from '../components/Providers';
+import Headers from '../components/Headers';
 import '../styles/globals.css';
 import { Inter } from 'next/font/google';
 import { Metadata } from 'next';

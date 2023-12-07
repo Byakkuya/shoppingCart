@@ -1,22 +1,4 @@
-# Technical Test
-
-<aside>
-💡 what i learned : 
--in a team we need rules to build and clean code without conflicts while mergins etc so we use some tools like eslint, but question why we use the Airbnb style guide and not google for example , and why we didn’t add prettier for more formating etc (bunch of people recommending using it ) .
--husky is amazing tool , for automating testing before commiting so we can ensure that we commited clean code
-about  nextjs :
-
-using typescript especially with eslint formatting slowed my workflow but it was really beneficial after all 
-
-the routing architecture is different from react somehow its much easier   
-
-in general this assignment helped me recognizing a lot of things about nextjs ,typescript  so thank you 
-
-and can you recommend me some nextjs/typescript courses so i can improve my skills etc .
-
-</aside>
-
-# The main work :
+# Technical Test : the main work 
 
 # Setup nextjs with Eslint-airbnb and Husky
 
