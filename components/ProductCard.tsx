@@ -20,6 +20,7 @@ function ProductCard(props: Props) {
       />
       <div className="p-4">
         <h1 className="font-bold text-xl">{props.product.name}</h1>
+        <h1 className="text-xl">{props.product.description}</h1>
         <h1 className="font-bold text-xl">
           {props.product.price}
           {' '}

@@ -221,6 +221,7 @@ CartItemCard : displays the details of an item in the cart:
 
 and add a `MonthsBtn` component to increase or decrease the number of months
 
-the rest is small details like desgining 
+
+the rest is small details like desgin ( used tailwind cuz of the short time and its already configured in nextJs)
 
 ---
