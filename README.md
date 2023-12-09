@@ -210,7 +210,7 @@ if `totalItems` is not `0` or `undefined` it will displays the total number
 then we added it to the headers.tsx 
 
 ---
-
+Created the Cart route/foler
 inside it i created  `Page.tsx`: displays all the items in the cart and the total price of all the items : 
 
 used the `TotalPriceSelector` selector to get total price of all the items in the cart from the redux store
